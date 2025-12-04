@@ -114,7 +114,6 @@ function LoginForm({ onLogin, onClose }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Form submitted with:', username, password);
     onLogin(username, password);
   };
 
@@ -138,6 +137,70 @@ function LoginForm({ onLogin, onClose }) {
         />
         <div style={{ textAlign: 'center', marginTop: '20px' }}>
           <button type="submit">Login</button>
+          <button type="button" onClick={onClose}>Cancel</button>
+        </div>
+      </form>
+    </div>
+  );
+}
+
+// Simple register form
+function RegisterForm({ onRegister, onClose }) {
+  const [formData, setFormData] = useState({
+    username: '',
+    email: '',
+    name: '',
+    password: '',
+    role: 'buyer'
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onRegister(formData);
+  };
+
+  return (
+    <div className="login-form">
+      <h3>Create New Account</h3>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="Username"
+          value={formData.username}
+          onChange={(e) => setFormData({...formData, username: e.target.value})}
+          required
+        />
+        <input
+          type="email"
+          placeholder="Email"
+          value={formData.email}
+          onChange={(e) => setFormData({...formData, email: e.target.value})}
+          required
+        />
+        <input
+          type="text"
+          placeholder="Full Name"
+          value={formData.name}
+          onChange={(e) => setFormData({...formData, name: e.target.value})}
+          required
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={formData.password}
+          onChange={(e) => setFormData({...formData, password: e.target.value})}
+          required
+        />
+        <select
+          value={formData.role}
+          onChange={(e) => setFormData({...formData, role: e.target.value})}
+          style={{ width: '100%', padding: '18px 20px', margin: '15px 0', border: '2px solid #ecf0f1', borderRadius: '15px', fontSize: '16px', background: 'rgba(255,255,255,0.9)' }}
+        >
+          <option value="buyer">Buyer</option>
+          <option value="seller">Seller</option>
+        </select>
+        <div style={{ textAlign: 'center', marginTop: '20px' }}>
+          <button type="submit">Register</button>
           <button type="button" onClick={onClose}>Cancel</button>
         </div>
       </form>
