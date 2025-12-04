@@ -18,7 +18,7 @@ function App() {
       const response = await axios.get('http://127.0.0.1:8000/api/products/');
       setProducts(response.data);
     } catch (error) {
-      console.log('Error getting products');
+      console.log('Error getting products:', error);
     }
   };
 
@@ -41,8 +41,23 @@ function App() {
       localStorage.setItem('user', JSON.stringify(response.data.user));
       setUser(response.data.user);
       setShowLogin(false);
+      alert('Login successful!');
     } catch (error) {
-      alert('Login failed');
+      alert('Login failed: Invalid credentials');
+    }
+  };
+
+  const register = async (userData) => {
+    try {
+      const response = await axios.post('http://127.0.0.1:8000/api/register/', userData);
+      
+      localStorage.setItem('token', response.data.access);
+      localStorage.setItem('user', JSON.stringify(response.data.user));
+      setUser(response.data.user);
+      setShowLogin(false);
+      alert('Registration successful!');
+    } catch (error) {
+      alert('Registration failed');
     }
   };
 
@@ -56,25 +71,32 @@ function App() {
     <div className="container">
       {/* Header */}
       <div className="header">
-        <h1>🛍️ MiniHub Marketplace</h1>
+        <h1>MiniHub Marketplace</h1>
         <div>
           {user ? (
             <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-              <span>Hello {user.name}! 👋</span>
+              <span>Hello {user.name}!</span>
               <button onClick={logout}>Logout</button>
             </div>
           ) : (
-            <button onClick={() => setShowLogin(true)}>Login</button>
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <button onClick={() => setShowLogin(true)}>Login</button>
+              <button onClick={() => setShowLogin('register')}>Register</button>
+            </div>
           )}
         </div>
       </div>
 
-      {/* Login Form */}
-      {showLogin && !user && <LoginForm onLogin={login} onClose={() => setShowLogin(false)} />}
+      {/* Login/Register Form */}
+      {showLogin && !user && (
+        showLogin === 'register' ? 
+          <RegisterForm onRegister={register} onClose={() => setShowLogin(false)} /> :
+          <LoginForm onLogin={login} onClose={() => setShowLogin(false)} />
+      )}
 
       {/* Products */}
       <div className="products-section">
-        <h2>✨ Featured Products</h2>
+        <h2>Featured Products</h2>
         <div className="products-grid">
           {products.map(product => (
             <ProductCard key={product.id} product={product} user={user} />
@@ -92,24 +114,27 @@ function LoginForm({ onLogin, onClose }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log('Form submitted with:', username, password);
     onLogin(username, password);
   };
 
   return (
     <div className="login-form">
-      <h3>🔐 Login to Your Account</h3>
+      <h3>Login to Your Account</h3>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder="Enter your username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+          required
         />
         <input
           type="password"
           placeholder="Enter your password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          required
         />
         <div style={{ textAlign: 'center', marginTop: '20px' }}>
           <button type="submit">Login</button>
@@ -124,7 +149,7 @@ function LoginForm({ onLogin, onClose }) {
 function ProductCard({ product, user }) {
   const buyProduct = async () => {
     if (!user) {
-      alert('Please login first! 🔐');
+      alert('Please login first!');
       return;
     }
 
@@ -136,23 +161,23 @@ function ProductCard({ product, user }) {
       }, {
         headers: { Authorization: `Bearer ${token}` }
       });
-      alert('Order placed successfully! 🎉');
+      alert('Order placed successfully!');
     } catch (error) {
-      alert('Error placing order 😞');
+      alert('Error placing order');
     }
   };
 
   return (
     <div className="product-card">
-      <h4>📦 {product.title}</h4>
+      <h4>{product.title}</h4>
       <p>{product.description}</p>
       <div className="product-price">${product.price}</div>
       <p style={{ fontSize: '14px', color: '#888' }}>
-        👤 Seller: {product.user?.name}
+        Seller: {product.user?.name}
       </p>
       {user && user.role === 'buyer' && (
         <button className="buy-button" onClick={buyProduct}>
-          🛒 Buy Now
+          Buy Now
         </button>
       )}
     </div>
