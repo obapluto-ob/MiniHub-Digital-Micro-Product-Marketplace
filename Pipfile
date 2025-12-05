@@ -4,13 +4,18 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-sqlalchemy = "*"
 alembic = "*"
 django = "==4.2.7"
 djangorestframework = "*"
 djangorestframework-simplejwt = "*"
 pillow = "*"
 django-cors-headers = "*"
+fastapi = "*"
+uvicorn = "*"
+sqlalchemy = "*"
+python-multipart = "*"
+python-jose = {extras = ["cryptography"], version = "*"}
+passlib = {extras = ["bcrypt"], version = "*"}
 
 [dev-packages]
 
