@@ -4,12 +4,6 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-alembic = "*"
-django = "==4.2.7"
-djangorestframework = "*"
-djangorestframework-simplejwt = "*"
-pillow = "*"
-django-cors-headers = "*"
 fastapi = "*"
 uvicorn = "*"
 sqlalchemy = "*"
