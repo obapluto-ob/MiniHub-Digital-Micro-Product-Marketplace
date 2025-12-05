@@ -176,6 +176,6 @@ This project demonstrates:
 
 ---
 
-**Author:** [Your Name]  
-**Course:** [Course Name]  
-**Date:** December 2024
+**Author:** [obed emoni lopeyok]  
+**Course:** [software engineering phase 3 project]  
+**Date:** December 2025
