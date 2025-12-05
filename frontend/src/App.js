@@ -64,8 +64,8 @@ function App() {
   const [users, setUsers] = useState([
     { 
       id: 1, 
-      username: process.env.REACT_APP_DEMO_USERNAME || 'admin', 
-      password: process.env.REACT_APP_DEMO_PASSWORD || 'admin123', 
+      username: process.env.REACT_APP_DEMO_USERNAME || 'obapluto', 
+      password: process.env.REACT_APP_DEMO_PASSWORD || 'plutomania', 
       name: 'Admin User', 
       role: 'seller',
       email: 'admin@minihub.com',
@@ -1471,7 +1471,7 @@ function AuthForm({ isLogin, onSubmit, onCancel }) {
       
       {isLogin && (
         <div style={{ marginTop: '1rem', textAlign: 'center', fontSize: '0.9rem', color: '#666' }}>
-          Demo: username "{process.env.REACT_APP_DEMO_USERNAME || 'admin'}", password "{process.env.REACT_APP_DEMO_PASSWORD || 'admin123'}"
+          Demo: username "{process.env.REACT_APP_DEMO_USERNAME || 'obapluto'}", password "{process.env.REACT_APP_DEMO_PASSWORD || 'plutomania'}"
         </div>
       )}
     </div>
