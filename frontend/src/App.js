@@ -105,7 +105,7 @@ function App() {
     const savedProducts = safeParseJSON(localStorage.getItem('products'));
     const savedWishlist = safeParseJSON(localStorage.getItem('wishlist'));
     const savedReviews = safeParseJSON(localStorage.getItem('reviews'));
-    const savedNotifications = safeParseJSON(localStorage.getItem('notifications'));
+    // Notifications should not persist across refreshes
     
     if (savedUser) setUser(savedUser);
     if (savedCart) setCart(savedCart);
@@ -114,7 +114,7 @@ function App() {
     if (savedProducts) setProducts(savedProducts);
     if (savedWishlist) setWishlist(savedWishlist);
     if (savedReviews) setReviews(savedReviews);
-    if (savedNotifications) setNotifications(savedNotifications);
+    // Don't restore old notifications on refresh
   }, []);
 
   const showNotification = (message, type = 'info') => {
