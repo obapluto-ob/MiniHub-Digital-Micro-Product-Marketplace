@@ -30,17 +30,22 @@ A full-stack web application for buying and selling digital products like templa
 
 ```
 MiniHub-Digital-Micro-Product-Marketplace/
-├── main.py                 # FastAPI backend server
-├── create_sample_data.py   # Script to populate database
-├── marketplace.db          # SQLite database
-├── frontend/               # React application
+├── backend/               # FastAPI backend
+│   ├── main.py           # FastAPI server
+│   ├── create_sample_data.py
+│   ├── Pipfile           # Backend dependencies
+│   ├── Pipfile.lock
+│   ├── marketplace.db    # SQLite database
+│   └── README.md
+├── frontend/             # React application
 │   ├── src/
-│   │   ├── App.js         # Main React component
-│   │   ├── App.css        # Styling
-│   │   └── index.js       # React entry point
-│   └── package.json       # Frontend dependencies
-├── Pipfile                # Backend dependencies
-└── README.md              # This file
+│   │   ├── App.js       # Main React component
+│   │   ├── App.css      # Styling
+│   │   └── index.js     # React entry point
+│   ├── package.json     # Frontend dependencies
+│   └── README.md
+├── netlify.toml         # Netlify config
+└── README.md            # This file
 ```
 
 ## Installation & Setup
@@ -52,22 +57,27 @@ MiniHub-Digital-Micro-Product-Marketplace/
 
 ### Backend Setup
 
-1. Install Python dependencies:
+1. Navigate to backend directory:
+```bash
+cd backend
+```
+
+2. Install Python dependencies:
 ```bash
 pipenv install
 ```
 
-2. Activate virtual environment:
+3. Activate virtual environment:
 ```bash
 pipenv shell
 ```
 
-3. Create sample data:
+4. Create sample data:
 ```bash
 python create_sample_data.py
 ```
 
-4. Start the backend server:
+5. Start the backend server:
 ```bash
 python main.py
 ```
@@ -98,11 +108,30 @@ npm start
 
 The application will open at `http://localhost:3000`
 
+## Quick Start
+
+### Terminal 1 - Backend:
+```bash
+cd backend
+pipenv install
+pipenv shell
+python create_sample_data.py
+python main.py
+```
+
+### Terminal 2 - Frontend:
+```bash
+cd frontend
+npm install
+cp .env.example .env
+npm start
+```
+
 ## Usage
 
 ### Demo Account
-- Username: `admin`
-- Password: `admin123`
+- Username: `obapluto`
+- Password: `plutomania`
 - Role: Seller
 
 ### Creating New Accounts
